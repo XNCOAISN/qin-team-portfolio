@@ -16,6 +16,7 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: theme.colors.pink[6],
     width: "100%",
     height: "100vh",
+    color: theme.white,
   },
   head: {
     padding: `0 ${theme.spacing.md}px`,
@@ -26,7 +27,6 @@ const useStyles = createStyles((theme) => ({
   links: {
     padding: 24,
   },
-  text: {},
 }));
 
 type DrawerContentProps = {
@@ -46,7 +46,7 @@ export const DrawerContent: FC<DrawerContentProps> = (props) => {
       <Container>
         <Box className={classes.head}>
           <UnstyledButton onClick={onClose}>
-            <X />
+            <X color="white" />
           </UnstyledButton>
         </Box>
         <nav>
