@@ -8,7 +8,7 @@ class _Document extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="ja">
         <Head />
         <body>
           <Main />
