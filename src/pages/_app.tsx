@@ -1,6 +1,6 @@
-import { MantineProvider } from "@mantine/core";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import { ThemeProvider } from "src/components/ThemeProvider";
 
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;
@@ -15,15 +15,9 @@ const App = (props: AppProps) => {
         />
       </Head>
 
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          colorScheme: "light",
-        }}
-      >
+      <ThemeProvider>
         <Component {...pageProps} />
-      </MantineProvider>
+      </ThemeProvider>
     </>
   );
 };
