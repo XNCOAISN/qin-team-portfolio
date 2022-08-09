@@ -1,10 +1,10 @@
 import {
+  ActionIcon,
   Box,
   Container,
   createStyles,
   Stack,
   Text,
-  UnstyledButton,
 } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import { FC } from "react";
@@ -19,13 +19,9 @@ const useStyles = createStyles((theme) => ({
     color: theme.white,
   },
   head: {
-    padding: `0 ${theme.spacing.md}px`,
     height: 65,
     display: "flex",
     alignItems: "center",
-  },
-  links: {
-    padding: 24,
   },
 }));
 
@@ -45,12 +41,12 @@ export const DrawerContent: FC<DrawerContentProps> = (props) => {
     <Box className={classes.root}>
       <Container>
         <Box className={classes.head}>
-          <UnstyledButton onClick={onClose}>
+          <ActionIcon size="lg" onClick={onClose}>
             <X color="white" />
-          </UnstyledButton>
+          </ActionIcon>
         </Box>
         <nav>
-          <Stack p="xl">
+          <Stack px="xs" py="xl">
             {menu.map((value, index) => {
               return (
                 <Text
