@@ -1,16 +1,33 @@
-import { Box, Container, Divider, Text, Title } from "@mantine/core";
+import {
+  Box,
+  BoxProps,
+  Container,
+  createStyles,
+  Divider,
+  Text,
+  Title,
+} from "@mantine/core";
 import { FC, ReactNode } from "react";
 
-type SectionProps = {
+type SectionProps = BoxProps & {
   title: string;
   children?: ReactNode;
 };
 
+const useStyles = createStyles(() => ({
+  root: { flex: 1 },
+}));
+
 export const Section: FC<SectionProps> = (props) => {
-  const { children, title } = props;
+  const { children, title, className, ...others } = props;
+  const { classes, cx } = useStyles();
 
   return (
-    <section style={{ flex: 1 }}>
+    <Box
+      component="section"
+      className={cx(classes.root, className)}
+      {...others}
+    >
       <Container>
         <Title order={2}>
           <Text size={28}>{title}</Text>
@@ -18,6 +35,6 @@ export const Section: FC<SectionProps> = (props) => {
         <Divider mt={20} />
         <Box py="xl">{children}</Box>
       </Container>
-    </section>
+    </Box>
   );
 };
