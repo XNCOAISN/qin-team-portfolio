@@ -1,20 +1,11 @@
-import {
-  Box,
-  Center,
-  Container,
-  createStyles,
-  Divider,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Box, Center, Container, createStyles, Stack } from "@mantine/core";
 import type { NextPage } from "next";
-import { FC, ReactNode } from "react";
 import { BlogCard } from "src/components/BlogCard";
 import { ButtonLink } from "src/components/ButtonLink";
 import { GitHubCard } from "src/components/GitHubCard";
 import { Hero } from "src/components/Hero";
 import { PortfolioCard } from "src/components/PortfolioCard";
+import { Section } from "src/components/Section";
 import { Layout } from "src/layouts";
 
 const BLOG_LIST = Array(4).fill({
@@ -86,6 +77,7 @@ const Home: NextPage = () => {
         <section>
           <Hero />
         </section>
+
         <Section title="Blog">
           <Stack spacing="xl">
             {BLOG_LIST.map((value, index) => (
@@ -149,27 +141,6 @@ const Home: NextPage = () => {
         </Container>
       </Stack>
     </Layout>
-  );
-};
-
-type SectionProps = {
-  title: string;
-  children?: ReactNode;
-};
-
-const Section: FC<SectionProps> = (props) => {
-  const { children, title } = props;
-
-  return (
-    <section style={{ flex: 1 }}>
-      <Container>
-        <Title order={2}>
-          <Text size={28}>{title}</Text>
-        </Title>
-        <Divider mt={20} />
-        <Box py="xl">{children}</Box>
-      </Container>
-    </section>
   );
 };
 
