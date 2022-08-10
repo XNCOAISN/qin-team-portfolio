@@ -141,7 +141,11 @@ const Home: NextPage = () => {
             </Stack>
           </Section>
 
-          <Section title="Tmp"></Section>
+          <Section title="Twitter">
+            <Center>
+              <ButtonLink href="#">View on Twitter</ButtonLink>
+            </Center>
+          </Section>
         </Container>
       </Stack>
     </Layout>
