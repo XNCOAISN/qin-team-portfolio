@@ -1,4 +1,4 @@
-import { Group, Image, Stack, Text, Title } from "@mantine/core";
+import { Image, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 
 type PortfolioCardProps = {
@@ -20,15 +20,9 @@ export const PortfolioCard: FC<PortfolioCardProps> = (props) => {
         <Text weight={500} lineClamp={4}>
           {description}
         </Text>
-        <Group>
-          <Text size="xs" weight={700} color="dimmed">
-            {startDate}
-          </Text>
-          <Text>-</Text>
-          <Text size="xs" weight={700} color="dimmed">
-            {endDate}
-          </Text>
-        </Group>
+        <Text size="xs" weight={700} color="dimmed">
+          {startDate} - {endDate}
+        </Text>
       </Stack>
     </article>
   );
