@@ -36,12 +36,35 @@ export const ThemeProvider = (props: MantineThemeProviderProps) => {
                 radius: "xl",
               },
               styles: () => ({
-                root: { "&:not(:disabled):active": { transform: "none" } },
+                root: {
+                  "&:not(:disabled):active": {
+                    transform: "none",
+                  },
+                },
               }),
             },
             ActionIcon: {
               styles: () => ({
-                root: { "&:not(:disabled):active": { transform: "none" } },
+                root: {
+                  "&:not(:disabled):active": {
+                    transform: "none",
+                  },
+                },
+              }),
+            },
+            Input: {
+              defaultProps: {
+                radius: "xs",
+              },
+            },
+            InputWrapper: {
+              styles: () => ({
+                label: {
+                  marginBottom: 6,
+                },
+                required: {
+                  display: "none",
+                },
               }),
             },
           },
