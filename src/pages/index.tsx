@@ -2,6 +2,7 @@ import {
   Box,
   Center,
   Container,
+  createStyles,
   Divider,
   Stack,
   Text,
@@ -12,6 +13,7 @@ import { FC, ReactNode } from "react";
 import { BlogCard } from "src/components/BlogCard";
 import { ButtonLink } from "src/components/ButtonLink";
 import { Hero } from "src/components/Hero";
+import { PortfolioCard } from "src/components/PortfolioCard";
 import { Layout } from "src/layouts";
 
 const BLOG_LIST = Array(4).fill({
@@ -21,7 +23,26 @@ const BLOG_LIST = Array(4).fill({
   date: "2022.07.11",
 });
 
+const PORTFOLIO_LIST = Array(4).fill({
+  title: "IT KINGDOM",
+  description:
+    "当サロンのLPページ。React、Next.js、TypeScriptなどのモダンな技術を用いて作られています。初心者にちょうど良い難易度の制作物です。",
+  startDate: "2021.10",
+  endDate: "2021.12",
+  thumbnail: "https://picsum.photos/400/200",
+});
+
+const useStyles = createStyles((theme) => ({
+  portfolioList: {
+    display: "grid",
+    gap: theme.spacing.xl,
+    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+  },
+}));
+
 const Home: NextPage = () => {
+  const { classes } = useStyles();
+
   return (
     <Layout>
       <Stack spacing={80}>
@@ -44,6 +65,25 @@ const Home: NextPage = () => {
           </Stack>
         </Section>
 
+        <Section title="Portfolio">
+          <Stack spacing="xl">
+            <Box className={classes.portfolioList}>
+              {PORTFOLIO_LIST.map((value, index) => (
+                <PortfolioCard
+                  key={index}
+                  title={value.title}
+                  description={value.description}
+                  startDate={value.startDate}
+                  endDate={value.endDate}
+                  thumbnail={value.thumbnail}
+                />
+              ))}
+            </Box>
+            <Center>
+              <ButtonLink href="#">View All</ButtonLink>
+            </Center>
+          </Stack>
+        </Section>
         <section>
           <Box
             sx={{
