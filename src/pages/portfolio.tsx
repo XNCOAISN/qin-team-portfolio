@@ -1,5 +1,6 @@
 import { Box, createStyles, Stack } from "@mantine/core";
 import type { NextPage } from "next";
+import { Hero } from "src/components/Hero";
 import { PortfolioCard } from "src/components/PortfolioCard";
 import { Section } from "src/components/Section";
 import { Layout } from "src/layouts";
@@ -14,6 +15,12 @@ const PORTFOLIO_LIST = Array(6).fill({
 });
 
 const useStyles = createStyles((theme) => ({
+  hero: {
+    display: "none",
+    [theme.fn.largerThan("md")]: {
+      display: "block",
+    },
+  },
   portfolioList: {
     display: "grid",
     gap: theme.spacing.xl,
@@ -26,6 +33,10 @@ const Portfolio: NextPage = () => {
 
   return (
     <Layout>
+      <div className={classes.hero}>
+        <Hero />
+      </div>
+
       <Section title="Portfolio" mt={40}>
         <Stack spacing="xl">
           <Box className={classes.portfolioList}>
