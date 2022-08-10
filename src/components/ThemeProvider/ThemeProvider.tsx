@@ -31,6 +31,10 @@ export const ThemeProvider = (props: MantineThemeProviderProps) => {
           colorScheme,
           components: {
             Button: {
+              defaultProps: {
+                size: "md",
+                radius: "xl",
+              },
               styles: () => ({
                 root: { "&:not(:disabled):active": { transform: "none" } },
               }),
