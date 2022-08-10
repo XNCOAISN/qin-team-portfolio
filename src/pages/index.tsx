@@ -143,20 +143,6 @@ const Home: NextPage = () => {
 
           <Section title="Tmp"></Section>
         </Container>
-
-        <section>
-          <Box
-            sx={{
-              height: 1000,
-              backgroundColor: "gray",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            tmp space
-          </Box>
-        </section>
       </Stack>
     </Layout>
   );
