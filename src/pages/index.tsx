@@ -12,6 +12,7 @@ import type { NextPage } from "next";
 import { FC, ReactNode } from "react";
 import { BlogCard } from "src/components/BlogCard";
 import { ButtonLink } from "src/components/ButtonLink";
+import { GitHubCard } from "src/components/GitHubCard";
 import { Hero } from "src/components/Hero";
 import { PortfolioCard } from "src/components/PortfolioCard";
 import { Layout } from "src/layouts";
@@ -32,11 +33,47 @@ const PORTFOLIO_LIST = Array(4).fill({
   thumbnail: "https://picsum.photos/400/200",
 });
 
+const GITHUB_LIST = Array(4).fill({
+  name: "lightsound/nexst-tailwind",
+  description: "Next.js starter template.",
+  stars: 117,
+  forks: 18,
+  languages: [
+    {
+      name: "Typescript",
+      value: 0.655,
+      color: "#3178C6",
+    },
+    {
+      name: "JavaScript",
+      value: 0.337,
+      color: "#F1E05A",
+    },
+    {
+      name: "Other",
+      value: 0.337,
+      color: "#EDEDED",
+    },
+  ],
+});
+
 const useStyles = createStyles((theme) => ({
   portfolioList: {
     display: "grid",
     gap: theme.spacing.xl,
     gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+  },
+  sectionGroup: {
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing.xl,
+    width: "100%",
+    padding: 0,
+
+    [theme.fn.largerThan("md")]: {
+      flexDirection: "row",
+      gap: 48,
+    },
   },
 }));
 
@@ -84,6 +121,29 @@ const Home: NextPage = () => {
             </Center>
           </Stack>
         </Section>
+
+        <Container className={classes.sectionGroup}>
+          <Section title="GitHub">
+            <Stack spacing="xl">
+              {GITHUB_LIST.map((value, index) => (
+                <GitHubCard
+                  key={index}
+                  name={value.name}
+                  description={value.description}
+                  stars={value.stars}
+                  forks={value.forks}
+                  languages={value.languages}
+                />
+              ))}
+              <Center>
+                <ButtonLink href="#">View on GitHub</ButtonLink>
+              </Center>
+            </Stack>
+          </Section>
+
+          <Section title="Tmp"></Section>
+        </Container>
+
         <section>
           <Box
             sx={{
@@ -111,7 +171,7 @@ const Section: FC<SectionProps> = (props) => {
   const { children, title } = props;
 
   return (
-    <section>
+    <section style={{ flex: 1 }}>
       <Container>
         <Title order={2}>
           <Text size={28}>{title}</Text>
