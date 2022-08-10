@@ -9,6 +9,7 @@ import {
 } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import { ComponentProps, FC, useState } from "react";
+import { TextLink } from "src/components/TextLink";
 import { Menu2, Moon, Sun } from "tabler-icons-react";
 
 import { DrawerContent } from "./DrawerContent";
@@ -27,6 +28,7 @@ const useStyles = createStyles((theme) => ({
     height: 65,
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    zIndex: 100,
   },
   container: {
     display: "flex",
@@ -73,15 +75,9 @@ export const Header: FC<HeaderProps> = (props) => {
           <nav className={classes.links}>
             <Group>
               {MENU.map((value, index) => (
-                <Text
-                  key={index}
-                  component={NextLink}
-                  href={value.href}
-                  size="lg"
-                  weight={700}
-                >
+                <TextLink key={index} href={value.href} size="lg" weight={700}>
                   {value.label}
-                </Text>
+                </TextLink>
               ))}
             </Group>
           </nav>

@@ -1,14 +1,7 @@
-import {
-  ActionIcon,
-  Box,
-  Container,
-  createStyles,
-  Stack,
-  Text,
-} from "@mantine/core";
-import { NextLink } from "@mantine/next";
+import { ActionIcon, Box, Container, createStyles, Stack } from "@mantine/core";
 import { FC } from "react";
 import { ComponentProps } from "react";
+import { TextLink } from "src/components/TextLink";
 import { X } from "tabler-icons-react";
 
 const useStyles = createStyles((theme) => ({
@@ -22,6 +15,11 @@ const useStyles = createStyles((theme) => ({
     height: 65,
     display: "flex",
     alignItems: "center",
+  },
+  close: {
+    "&:hover": {
+      backgroundColor: theme.colors.pink[7],
+    },
   },
 }));
 
@@ -41,23 +39,17 @@ export const DrawerContent: FC<DrawerContentProps> = (props) => {
     <Box className={classes.root}>
       <Container>
         <Box className={classes.head}>
-          <ActionIcon size="lg" onClick={onClose}>
+          <ActionIcon className={classes.close} size="lg" onClick={onClose}>
             <X color="white" />
           </ActionIcon>
         </Box>
         <nav>
-          <Stack px="xs" py="xl">
+          <Stack px="xs" py="xl" align="flex-start">
             {menu.map((value, index) => {
               return (
-                <Text
-                  key={index}
-                  component={NextLink}
-                  href={value.href}
-                  size={28}
-                  weight={700}
-                >
+                <TextLink key={index} href={value.href} size={28} weight={700}>
                   {value.label}
-                </Text>
+                </TextLink>
               );
             })}
           </Stack>
