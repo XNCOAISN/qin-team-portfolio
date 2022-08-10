@@ -7,6 +7,7 @@ const useStyles = createStyles((theme) => ({
   footer: {
     margin: `0 ${theme.spacing.md}px`,
     height: 105,
+    paddingTop: 40,
   },
 
   container: {
