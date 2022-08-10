@@ -14,15 +14,17 @@ export const PortfolioCard: FC<PortfolioCardProps> = (props) => {
 
   return (
     <article>
-      <Stack spacing={8}>
+      <Stack>
         <Image src={thumbnail} alt="" />
-        <Title order={3}>{title}</Title>
-        <Text weight={500} lineClamp={4}>
-          {description}
-        </Text>
-        <Text size="xs" weight={700} color="dimmed">
-          {startDate} - {endDate}
-        </Text>
+        <Stack spacing={8}>
+          <Title order={3}>{title}</Title>
+          <Text weight={500} lineClamp={4}>
+            {description}
+          </Text>
+          <Text size="xs" weight={700} color="dimmed">
+            {startDate} - {endDate}
+          </Text>
+        </Stack>
       </Stack>
     </article>
   );
