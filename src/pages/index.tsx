@@ -91,7 +91,7 @@ const Home: NextPage = () => {
               />
             ))}
             <Center>
-              <ButtonLink href="#">View All</ButtonLink>
+              <ButtonLink href="/blog">View All</ButtonLink>
             </Center>
           </Stack>
         </Section>
@@ -111,7 +111,7 @@ const Home: NextPage = () => {
               ))}
             </PortfolioCard.List>
             <Center>
-              <ButtonLink href="#">View All</ButtonLink>
+              <ButtonLink href="/portfolio">View All</ButtonLink>
             </Center>
           </Stack>
         </Section>
