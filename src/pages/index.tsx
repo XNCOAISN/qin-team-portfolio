@@ -130,7 +130,7 @@ const Home: NextPage = () => {
                 />
               ))}
               <Center>
-                <ButtonLink href="https://github.com/lightsound">
+                <ButtonLink href="https://github.com/lightsound" external>
                   View on GitHub
                 </ButtonLink>
               </Center>
@@ -151,7 +151,7 @@ const Home: NextPage = () => {
               ))}
             </Stack>
             <Center>
-              <ButtonLink href="https://twitter.com/shimabu_it">
+              <ButtonLink href="https://twitter.com/shimabu_it" external>
                 View on Twitter
               </ButtonLink>
             </Center>
