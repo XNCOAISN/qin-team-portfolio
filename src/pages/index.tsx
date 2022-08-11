@@ -6,6 +6,7 @@ import { GitHubCard } from "src/components/GitHubCard";
 import { Hero } from "src/components/Hero";
 import { PortfolioCard } from "src/components/PortfolioCard";
 import { Section } from "src/components/Section";
+import { TwitterCard } from "src/components/TwitterCard";
 import { Layout } from "src/layouts";
 
 const BLOG_LIST = Array(4).fill({
@@ -46,6 +47,15 @@ const GITHUB_LIST = Array(4).fill({
       color: "#EDEDED",
     },
   ],
+});
+
+const TWITTER_LIST = Array(3).fill({
+  name: "shimabu_it",
+  screenName: "しまぶーのIT大学",
+  source:
+    '<p>📣 新サービス「Noway Form」をリリースしました！</p><p>Noway Formは、Notionのデータベースをもとにフォームを作成できるサービスです。これまでGoogle FormsでやっていたことがNotionだけで完結します✌✨</p><p>試しに使っていただけると幸いです😊</p><p><a href="https://www.noway-form.com/ja" rel="nofollow">https://www.noway-form.com/ja</a></p>',
+  icon: "https://picsum.photos/100",
+  date: "5月25日",
 });
 
 const useStyles = createStyles((theme) => ({
@@ -134,6 +144,18 @@ const Home: NextPage = () => {
           </Section>
 
           <Section title="Twitter">
+            <Stack spacing="xl">
+              {TWITTER_LIST.map((value, index) => (
+                <TwitterCard
+                  key={index}
+                  icon={value.icon}
+                  name={value.name}
+                  screenName={value.screenName}
+                  date={value.date}
+                  source={value.source}
+                />
+              ))}
+            </Stack>
             <Center>
               <ButtonLink href="#">View on Twitter</ButtonLink>
             </Center>
