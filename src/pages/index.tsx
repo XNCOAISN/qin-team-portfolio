@@ -9,6 +9,7 @@ import { TwitterCard } from "src/components/TwitterCard";
 import { LayoutWithHero } from "src/layouts/LayoutWithHero";
 
 const BLOG_LIST = Array(4).fill({
+  id: "blogId",
   title: "This is a header",
   description:
     "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. ",
@@ -83,6 +84,7 @@ const Home: NextPage = () => {
             {BLOG_LIST.map((value, index) => (
               <BlogCard
                 key={index}
+                id={value.id}
                 title={value.title}
                 description={value.description}
                 date={value.date}
