@@ -14,12 +14,6 @@ const PORTFOLIO_LIST = Array(6).fill({
 });
 
 const useStyles = createStyles((theme) => ({
-  hero: {
-    display: "none",
-    [theme.fn.largerThan("md")]: {
-      display: "block",
-    },
-  },
   portfolioList: {
     display: "grid",
     gap: theme.spacing.xl,
