@@ -149,7 +149,9 @@ const Home: NextPage = () => {
               ))}
             </Stack>
             <Center>
-              <ButtonLink href="#">View on Twitter</ButtonLink>
+              <ButtonLink href="https://twitter.com/shimabu_it">
+                View on Twitter
+              </ButtonLink>
             </Center>
           </Section>
         </Container>
