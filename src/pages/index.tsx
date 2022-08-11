@@ -1,4 +1,4 @@
-import { Box, Center, Container, createStyles, Stack } from "@mantine/core";
+import { Center, Container, createStyles, Stack } from "@mantine/core";
 import type { NextPage } from "next";
 import { BlogCard } from "src/components/BlogCard";
 import { ButtonLink } from "src/components/ButtonLink";
@@ -58,11 +58,6 @@ const TWITTER_LIST = Array(3).fill({
 });
 
 const useStyles = createStyles((theme) => ({
-  portfolioList: {
-    display: "grid",
-    gap: theme.spacing.xl,
-    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-  },
   sectionGroup: {
     display: "flex",
     flexDirection: "column",
@@ -101,7 +96,7 @@ const Home: NextPage = () => {
 
         <Section title="Portfolio">
           <Stack spacing="xl">
-            <Box className={classes.portfolioList}>
+            <PortfolioCard.List>
               {PORTFOLIO_LIST.map((value, index) => (
                 <PortfolioCard
                   key={index}
@@ -112,7 +107,7 @@ const Home: NextPage = () => {
                   thumbnail={value.thumbnail}
                 />
               ))}
-            </Box>
+            </PortfolioCard.List>
             <Center>
               <ButtonLink href="#">View All</ButtonLink>
             </Center>
