@@ -5,10 +5,18 @@ import { FC } from "react";
 
 export type ButtonLinkProps = Omit<MantineButtonProps, "color"> & {
   href: string;
+  external?: boolean;
 };
 
 export const ButtonLink: FC<ButtonLinkProps> = (props) => {
-  const { ...others } = props;
+  const { external = false, ...others } = props;
+
+  const externalProps = external
+    ? {
+        rel: "noopener noreferrer",
+        target: "_blank",
+      }
+    : {};
 
   return (
     <MantineButton
@@ -26,6 +34,7 @@ export const ButtonLink: FC<ButtonLinkProps> = (props) => {
               : theme.colors.gray[7],
         },
       })}
+      {...externalProps}
       {...others}
     />
   );
