@@ -1,4 +1,3 @@
-import { Box, createStyles, Stack } from "@mantine/core";
 import type { NextPage } from "next";
 import { PortfolioCard } from "src/components/PortfolioCard";
 import { Section } from "src/components/Section";
@@ -13,40 +12,22 @@ const PORTFOLIO_LIST = Array(6).fill({
   thumbnail: "https://picsum.photos/400/200",
 });
 
-const useStyles = createStyles((theme) => ({
-  hero: {
-    display: "none",
-    [theme.fn.largerThan("md")]: {
-      display: "block",
-    },
-  },
-  portfolioList: {
-    display: "grid",
-    gap: theme.spacing.xl,
-    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-  },
-}));
-
 const Portfolio: NextPage = () => {
-  const { classes } = useStyles();
-
   return (
     <LayoutWithHero>
       <Section title="Portfolio" mt={40}>
-        <Stack spacing="xl">
-          <Box className={classes.portfolioList}>
-            {PORTFOLIO_LIST.map((value, index) => (
-              <PortfolioCard
-                key={index}
-                title={value.title}
-                description={value.description}
-                startDate={value.startDate}
-                endDate={value.endDate}
-                thumbnail={value.thumbnail}
-              />
-            ))}
-          </Box>
-        </Stack>
+        <PortfolioCard.List>
+          {PORTFOLIO_LIST.map((value, index) => (
+            <PortfolioCard
+              key={index}
+              title={value.title}
+              description={value.description}
+              startDate={value.startDate}
+              endDate={value.endDate}
+              thumbnail={value.thumbnail}
+            />
+          ))}
+        </PortfolioCard.List>
       </Section>
     </LayoutWithHero>
   );

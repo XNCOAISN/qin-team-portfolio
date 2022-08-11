@@ -1,6 +1,12 @@
 import { Image, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 
+import { PortfolioCardList } from "./List";
+
+type PortfolioCardComponents = {
+  List: typeof PortfolioCardList;
+};
+
 type PortfolioCardProps = {
   title: string;
   description: string;
@@ -9,7 +15,9 @@ type PortfolioCardProps = {
   thumbnail: string;
 };
 
-export const PortfolioCard: FC<PortfolioCardProps> = (props) => {
+export const PortfolioCard: FC<PortfolioCardProps> & PortfolioCardComponents = (
+  props
+) => {
   const { title, description, startDate, endDate, thumbnail } = props;
 
   return (
@@ -29,3 +37,5 @@ export const PortfolioCard: FC<PortfolioCardProps> = (props) => {
     </article>
   );
 };
+
+PortfolioCard.List = PortfolioCardList;
