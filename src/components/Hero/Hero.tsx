@@ -1,11 +1,13 @@
 import {
   Container,
+  ContainerProps,
   createStyles,
   Group,
   Stack,
   Text,
   Title,
 } from "@mantine/core";
+import { FC } from "react";
 import { FacebookIcon, RSSIcon, TwitterIcon } from "src/components/Icon";
 
 const useStyles = createStyles((theme) => ({
@@ -47,11 +49,14 @@ const LINKS = [
   { icon: <RSSIcon />, href: "#" },
 ];
 
-export const Hero = () => {
-  const { classes } = useStyles();
+type HeroProps = ContainerProps;
+
+export const Hero: FC<HeroProps> = (props) => {
+  const { className, ...others } = props;
+  const { classes, cx } = useStyles();
 
   return (
-    <Container className={classes.container}>
+    <Container className={cx(classes.container, className)} {...others}>
       <Stack spacing={4}>
         <Title className={classes.title} order={1}>
           Shimabu IT University
