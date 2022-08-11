@@ -130,7 +130,9 @@ const Home: NextPage = () => {
                 />
               ))}
               <Center>
-                <ButtonLink href="#">View on GitHub</ButtonLink>
+                <ButtonLink href="https://github.com/lightsound">
+                  View on GitHub
+                </ButtonLink>
               </Center>
             </Stack>
           </Section>
