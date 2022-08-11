@@ -1,9 +1,8 @@
-import { Center, createStyles, Loader, Stack } from "@mantine/core";
+import { Center, Loader, Stack } from "@mantine/core";
 import type { NextPage } from "next";
 import { BlogCard } from "src/components/BlogCard";
-import { Hero } from "src/components/Hero";
 import { Section } from "src/components/Section";
-import { Layout } from "src/layouts";
+import { LayoutWithHero } from "src/layouts/LayoutWithHero";
 
 const BLOG_LIST = Array(10).fill({
   title: "This is a header",
@@ -12,24 +11,9 @@ const BLOG_LIST = Array(10).fill({
   date: "2022.07.11",
 });
 
-const useStyles = createStyles((theme) => ({
-  hero: {
-    display: "none",
-    [theme.fn.largerThan("md")]: {
-      display: "block",
-    },
-  },
-}));
-
 const Blog: NextPage = () => {
-  const { classes } = useStyles();
-
   return (
-    <Layout>
-      <div className={classes.hero}>
-        <Hero />
-      </div>
-
+    <LayoutWithHero>
       <Section title="Blog" mt={40}>
         <Stack spacing="xl">
           {BLOG_LIST.map((value, index) => (
@@ -45,7 +29,7 @@ const Blog: NextPage = () => {
           </Center>
         </Stack>
       </Section>
-    </Layout>
+    </LayoutWithHero>
   );
 };
 

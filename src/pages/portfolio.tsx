@@ -1,9 +1,8 @@
 import { Box, createStyles, Stack } from "@mantine/core";
 import type { NextPage } from "next";
-import { Hero } from "src/components/Hero";
 import { PortfolioCard } from "src/components/PortfolioCard";
 import { Section } from "src/components/Section";
-import { Layout } from "src/layouts";
+import { LayoutWithHero } from "src/layouts/LayoutWithHero";
 
 const PORTFOLIO_LIST = Array(6).fill({
   title: "IT KINGDOM",
@@ -32,11 +31,7 @@ const Portfolio: NextPage = () => {
   const { classes } = useStyles();
 
   return (
-    <Layout>
-      <div className={classes.hero}>
-        <Hero />
-      </div>
-
+    <LayoutWithHero>
       <Section title="Portfolio" mt={40}>
         <Stack spacing="xl">
           <Box className={classes.portfolioList}>
@@ -53,7 +48,7 @@ const Portfolio: NextPage = () => {
           </Box>
         </Stack>
       </Section>
-    </Layout>
+    </LayoutWithHero>
   );
 };
 

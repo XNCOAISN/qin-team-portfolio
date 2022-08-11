@@ -19,7 +19,11 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-export const Layout: FC<{ children: ReactNode }> = (props) => {
+export type LayoutProps = {
+  children: ReactNode;
+};
+
+export const Layout: FC<LayoutProps> = (props) => {
   const { children } = props;
   const { classes } = useStyles();
 

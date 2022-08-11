@@ -3,11 +3,10 @@ import type { NextPage } from "next";
 import { BlogCard } from "src/components/BlogCard";
 import { ButtonLink } from "src/components/ButtonLink";
 import { GitHubCard } from "src/components/GitHubCard";
-import { Hero } from "src/components/Hero";
 import { PortfolioCard } from "src/components/PortfolioCard";
 import { Section } from "src/components/Section";
 import { TwitterCard } from "src/components/TwitterCard";
-import { Layout } from "src/layouts";
+import { LayoutWithHero } from "src/layouts/LayoutWithHero";
 
 const BLOG_LIST = Array(4).fill({
   title: "This is a header",
@@ -82,12 +81,8 @@ const Home: NextPage = () => {
   const { classes } = useStyles();
 
   return (
-    <Layout>
-      <Stack spacing={80}>
-        <section>
-          <Hero />
-        </section>
-
+    <LayoutWithHero responsive={false}>
+      <Stack spacing={80} mt={80}>
         <Section title="Blog">
           <Stack spacing="xl">
             {BLOG_LIST.map((value, index) => (
@@ -162,7 +157,7 @@ const Home: NextPage = () => {
           </Section>
         </Container>
       </Stack>
-    </Layout>
+    </LayoutWithHero>
   );
 };
 
