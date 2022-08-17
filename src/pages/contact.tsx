@@ -36,7 +36,7 @@ const Contact: NextPage = () => {
             />
             <Textarea
               required
-              label="Your Message"
+              label="Your message"
               placeholder="I want to order your goods"
               {...form.getInputProps("message")}
             />

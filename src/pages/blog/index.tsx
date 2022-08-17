@@ -27,7 +27,7 @@ const Blog: NextPage = () => {
             />
           ))}
           <Center>
-            <Loader />
+            <Loader color="red" />
           </Center>
         </Stack>
       </Section>

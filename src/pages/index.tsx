@@ -59,6 +59,14 @@ const TWITTER_LIST = Array(3).fill({
 });
 
 const useStyles = createStyles((theme) => ({
+  contents: {
+    gap: 40,
+    marginTop: 40,
+    [theme.fn.largerThan("md")]: {
+      gap: 80,
+      marginTop: 80,
+    },
+  },
   sectionGroup: {
     display: "flex",
     flexDirection: "column",
@@ -78,7 +86,7 @@ const Home: NextPage = () => {
 
   return (
     <LayoutWithHero responsive={false}>
-      <Stack spacing={80} mt={80}>
+      <Stack className={classes.contents}>
         <Section title="Blog">
           <Stack spacing="xl">
             {BLOG_LIST.map((value, index) => (
