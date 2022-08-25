@@ -1,4 +1,10 @@
-import { Center, Stack, Textarea, TextInput } from "@mantine/core";
+import {
+  Center,
+  LoadingOverlay,
+  Stack,
+  Textarea,
+  TextInput,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -44,7 +50,11 @@ const Contact: NextPage = () => {
   return (
     <Layout>
       <Section title="Contact" mt={40}>
-        <form onSubmit={form.onSubmit(handleSubmit)}>
+        <form
+          onSubmit={form.onSubmit(handleSubmit)}
+          style={{ position: "relative" }}
+        >
+          <LoadingOverlay visible={processing.current} />
           <Stack spacing="xl">
             <TextInput
               required
