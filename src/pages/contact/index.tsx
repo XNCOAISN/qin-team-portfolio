@@ -39,8 +39,6 @@ const Contact: NextPage = () => {
     } catch (e) {
       console.error(e);
     }
-
-    processing.current = false;
   };
 
   return (
