@@ -7,7 +7,7 @@ type PortfolioCardComponents = {
   List: typeof PortfolioCardList;
 };
 
-type PortfolioCardProps = {
+export type PortfolioCardProps = {
   title: string;
   description: string;
   startDate: string;

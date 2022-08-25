@@ -11,7 +11,8 @@ export const ThemeProvider = (props: MantineThemeProviderProps) => {
   const { children } = props;
 
   const preferredColorScheme = useColorScheme();
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
+  const [colorScheme, setColorScheme] =
+    useState<ColorScheme>(preferredColorScheme);
 
   const toggleColorScheme = (value?: ColorScheme) => {
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
