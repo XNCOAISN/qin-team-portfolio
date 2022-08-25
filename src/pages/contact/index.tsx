@@ -4,6 +4,7 @@ import {
   Stack,
   Textarea,
   TextInput,
+  useMantineTheme,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import type { NextPage } from "next";
@@ -47,6 +48,8 @@ const Contact: NextPage = () => {
     }
   };
 
+  const theme = useMantineTheme();
+
   return (
     <Layout>
       <Section title="Contact" mt={40}>
@@ -54,7 +57,12 @@ const Contact: NextPage = () => {
           onSubmit={form.onSubmit(handleSubmit)}
           style={{ position: "relative" }}
         >
-          <LoadingOverlay visible={processing.current} />
+          <LoadingOverlay
+            visible={processing.current}
+            overlayColor={
+              theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white
+            }
+          />
           <Stack spacing="xl">
             <TextInput
               required
