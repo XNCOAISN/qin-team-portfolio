@@ -1,29 +1,18 @@
 import { Center, Container, createStyles, Stack } from "@mantine/core";
 import type { NextPage } from "next";
-import { BlogCard } from "src/components/BlogCard";
+import { BlogCard, blogCardFromMicroCMS } from "src/components/BlogCard";
 import { ButtonLink } from "src/components/ButtonLink";
+import { CenterLoader } from "src/components/CenterLoader";
 import { GitHubCard } from "src/components/GitHubCard";
-import { PortfolioCard } from "src/components/PortfolioCard";
+import {
+  PortfolioCard,
+  portfolioCardFromMicroCMS,
+} from "src/components/PortfolioCard";
 import { Section } from "src/components/Section";
 import { TwitterCard } from "src/components/TwitterCard";
 import { LayoutWithHero } from "src/layouts/LayoutWithHero";
-
-const BLOG_LIST = Array(4).fill({
-  id: "blogId",
-  title: "This is a header",
-  description:
-    "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. ",
-  date: "2022.07.11",
-});
-
-const PORTFOLIO_LIST = Array(4).fill({
-  title: "IT KINGDOM",
-  description:
-    "当サロンのLPページ。React、Next.js、TypeScriptなどのモダンな技術を用いて作られています。初心者にちょうど良い難易度の制作物です。",
-  startDate: "2021.10",
-  endDate: "2021.12",
-  thumbnail: "https://picsum.photos/400/200",
-});
+import { Blog, useMicroCMSQuery } from "src/lib/microcms";
+import { Portfolio } from "src/lib/microcms";
 
 const GITHUB_LIST = Array(4).fill({
   name: "lightsound/nexst-tailwind",
@@ -80,40 +69,11 @@ const Home: NextPage = () => {
     <LayoutWithHero responsive={false}>
       <Stack spacing={80} mt={80}>
         <Section title="Blog">
-          <Stack spacing="xl">
-            {BLOG_LIST.map((value, index) => (
-              <BlogCard
-                key={index}
-                id={value.id}
-                title={value.title}
-                description={value.description}
-                date={value.date}
-              />
-            ))}
-            <Center>
-              <ButtonLink href="/blog">View All</ButtonLink>
-            </Center>
-          </Stack>
+          <Blog />
         </Section>
 
         <Section title="Portfolio">
-          <Stack spacing="xl">
-            <PortfolioCard.List>
-              {PORTFOLIO_LIST.map((value, index) => (
-                <PortfolioCard
-                  key={index}
-                  title={value.title}
-                  description={value.description}
-                  startDate={value.startDate}
-                  endDate={value.endDate}
-                  thumbnail={value.thumbnail}
-                />
-              ))}
-            </PortfolioCard.List>
-            <Center>
-              <ButtonLink href="/portfolio">View All</ButtonLink>
-            </Center>
-          </Stack>
+          <Portfolio />
         </Section>
 
         <Container className={classes.sectionGroup}>
@@ -159,6 +119,60 @@ const Home: NextPage = () => {
         </Container>
       </Stack>
     </LayoutWithHero>
+  );
+};
+
+const Blog = () => {
+  const { data, error } = useMicroCMSQuery<Blog>("blog", 6, {
+    orders: "-publishedAt",
+  });
+
+  if (error) {
+    return null;
+  }
+
+  if (!data) {
+    return <CenterLoader />;
+  }
+
+  return (
+    <Stack spacing="xl">
+      <Stack spacing="xl">
+        {data.map((value, index) => (
+          <BlogCard key={index} {...blogCardFromMicroCMS(value)} />
+        ))}
+      </Stack>
+      <Center>
+        <ButtonLink href="/portfolio">View All</ButtonLink>
+      </Center>
+    </Stack>
+  );
+};
+
+const Portfolio = () => {
+  const { data, error } = useMicroCMSQuery<Portfolio>("portfolio", 6, {
+    orders: "-priority",
+  });
+
+  if (error) {
+    return null;
+  }
+
+  if (!data) {
+    return <CenterLoader />;
+  }
+
+  return (
+    <Stack spacing="xl">
+      <PortfolioCard.List>
+        {data.map((value, index) => (
+          <PortfolioCard key={index} {...portfolioCardFromMicroCMS(value)} />
+        ))}
+      </PortfolioCard.List>
+      <Center>
+        <ButtonLink href="/portfolio">View All</ButtonLink>
+      </Center>
+    </Stack>
   );
 };
 

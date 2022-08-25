@@ -3,7 +3,7 @@ import { useForm } from "@mantine/form";
 import type { NextPage } from "next";
 import { Button } from "src/components/Button";
 import { Section } from "src/components/Section";
-import { LayoutWithHero } from "src/layouts/LayoutWithHero";
+import { Layout } from "src/layouts";
 
 const Contact: NextPage = () => {
   const form = useForm({
@@ -18,7 +18,7 @@ const Contact: NextPage = () => {
   });
 
   return (
-    <LayoutWithHero>
+    <Layout>
       <Section title="Contact" mt={40}>
         <form onSubmit={form.onSubmit((values) => console.log(values))}>
           <Stack spacing="xl">
@@ -46,7 +46,7 @@ const Contact: NextPage = () => {
           </Stack>
         </form>
       </Section>
-    </LayoutWithHero>
+    </Layout>
   );
 };
 
