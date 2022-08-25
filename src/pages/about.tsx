@@ -1,11 +1,11 @@
 import { Stack, Text, Title } from "@mantine/core";
 import type { NextPage } from "next";
 import { Section } from "src/components/Section";
-import { LayoutWithHero } from "src/layouts/LayoutWithHero";
+import { Layout } from "src/layouts";
 
 const About: NextPage = () => {
   return (
-    <LayoutWithHero>
+    <Layout>
       <Section title="About" mt={40}>
         <Stack spacing="xl">
           <Title order={3}>Lightsound Shimabu</Title>
@@ -14,7 +14,7 @@ const About: NextPage = () => {
           </Text>
         </Stack>
       </Section>
-    </LayoutWithHero>
+    </Layout>
   );
 };
 

@@ -1,0 +1,1 @@
+export { MicroCMSInfiniteScroll } from "./MicroCMSInfiniteScroll";

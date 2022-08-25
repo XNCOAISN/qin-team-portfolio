@@ -2,7 +2,7 @@ import { Paper, Stack, Text, Title } from "@mantine/core";
 import { FC } from "react";
 import { TextLink } from "src/components/TextLink";
 
-type BlogCardProps = {
+export type BlogCardProps = {
   id: string;
   title: string;
   description: string;
