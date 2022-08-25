@@ -1,11 +1,15 @@
 import { Center, Stack, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import { useRef } from "react";
 import { Button } from "src/components/Button";
 import { Section } from "src/components/Section";
 import { Layout } from "src/layouts";
+import { microcms } from "src/lib/microcms";
 
 const Contact: NextPage = () => {
+  const router = useRouter();
   const form = useForm({
     initialValues: {
       email: "",
@@ -17,10 +21,32 @@ const Contact: NextPage = () => {
     },
   });
 
+  const processing = useRef(false);
+
+  const handleSubmit = async (values: typeof form.values) => {
+    if (processing.current) {
+      return;
+    }
+
+    processing.current = true;
+
+    try {
+      await microcms.create({
+        endpoint: "contact",
+        content: values,
+      });
+      router.push("/contact/completed");
+    } catch (e) {
+      console.error(e);
+    }
+
+    processing.current = false;
+  };
+
   return (
     <Layout>
       <Section title="Contact" mt={40}>
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack spacing="xl">
             <TextInput
               required
