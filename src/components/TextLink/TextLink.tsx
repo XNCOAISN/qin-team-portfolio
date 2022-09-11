@@ -9,6 +9,13 @@ type TextLinkProps = Omit<TextProps, "variant"> & {
 export const TextLink: FC<TextLinkProps> = (props) => {
   const { href, ...others } = props;
 
+  const external = href.startsWith("http")
+    ? {
+        target: "_blank",
+        rel: "noopener noreferrer",
+      }
+    : {};
+
   return (
     <Text
       component={NextLink}
@@ -18,6 +25,7 @@ export const TextLink: FC<TextLinkProps> = (props) => {
           opacity: theme.colorScheme === "dark" ? 0.45 : 0.65,
         },
       })}
+      {...external}
       {...others}
     />
   );

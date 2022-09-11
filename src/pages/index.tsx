@@ -1,5 +1,6 @@
 import { Center, Container, createStyles, Stack } from "@mantine/core";
-import type { NextPage } from "next";
+import dayjs from "dayjs";
+import type { GetStaticProps, NextPage } from "next";
 import { BlogCard, blogCardFromMicroCMS } from "src/components/BlogCard";
 import { ButtonLink } from "src/components/ButtonLink";
 import { CenterLoader } from "src/components/CenterLoader";
@@ -9,10 +10,11 @@ import {
   portfolioCardFromMicroCMS,
 } from "src/components/PortfolioCard";
 import { Section } from "src/components/Section";
-import { TwitterCard } from "src/components/TwitterCard";
+import { TwitterCard, TwitterCardProps } from "src/components/TwitterCard";
 import { LayoutWithHero } from "src/layouts/LayoutWithHero";
 import { Blog, useMicroCMSQuery } from "src/lib/microcms";
 import { Portfolio } from "src/lib/microcms";
+import { fetchTimelineByUsername } from "src/lib/twitter/fetch-timeline";
 
 const GITHUB_LIST = Array(4).fill({
   name: "lightsound/nexst-tailwind",
@@ -38,14 +40,20 @@ const GITHUB_LIST = Array(4).fill({
   ],
 });
 
-const TWITTER_LIST = Array(3).fill({
-  name: "shimabu_it",
-  screenName: "しまぶーのIT大学",
-  source:
-    '<p>📣 新サービス「Noway Form」をリリースしました！</p><p>Noway Formは、Notionのデータベースをもとにフォームを作成できるサービスです。これまでGoogle FormsでやっていたことがNotionだけで完結します✌✨</p><p>試しに使っていただけると幸いです😊</p><p><a href="https://www.noway-form.com/ja" rel="nofollow">https://www.noway-form.com/ja</a></p>',
-  icon: "https://picsum.photos/100",
-  date: "5月25日",
-});
+// const TWITTER_LIST = Array(3).fill({
+//   name: "shimabu_it",
+//   screenName: "しまぶーのIT大学",
+//   source:
+//     '<p>📣 新サービス「Noway Form」をリリースしました！</p><p>Noway Formは、Notionのデータベースをもとにフォームを作成できるサービスです。これまでGoogle FormsでやっていたことがNotionだけで完結します✌✨</p><p>試しに使っていただけると幸いです😊</p><p><a href="https://www.noway-form.com/ja" rel="nofollow">https://www.noway-form.com/ja</a></p>',
+//   icon: "https://picsum.photos/100",
+//   date: "5月25日",
+// });
+
+type Props = {
+  twitter: {
+    timeline: TwitterCardProps[];
+  };
+};
 
 const useStyles = createStyles((theme) => ({
   contents: {
@@ -70,7 +78,8 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const Home: NextPage = () => {
+const Home: NextPage<Props> = (props) => {
+  const { twitter } = props;
   const { classes } = useStyles();
 
   return (
@@ -107,7 +116,7 @@ const Home: NextPage = () => {
 
           <Section title="Twitter">
             <Stack spacing="xl">
-              {TWITTER_LIST.map((value, index) => (
+              {twitter.timeline.map((value, index) => (
                 <TwitterCard
                   key={index}
                   icon={value.icon}
@@ -117,12 +126,15 @@ const Home: NextPage = () => {
                   source={value.source}
                 />
               ))}
+              <Center>
+                <ButtonLink
+                  href={`https://twitter.com/${process.env.NEXT_PUBLIC_TWITTER_USERNAME}`}
+                  external
+                >
+                  View on Twitter
+                </ButtonLink>
+              </Center>
             </Stack>
-            <Center>
-              <ButtonLink href="https://twitter.com/shimabu_it" external>
-                View on Twitter
-              </ButtonLink>
-            </Center>
           </Section>
         </Container>
       </Stack>
@@ -182,6 +194,27 @@ const Portfolio = () => {
       </Center>
     </Stack>
   );
+};
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const timeline = await fetchTimelineByUsername(
+    process.env.NEXT_PUBLIC_TWITTER_USERNAME!
+  );
+
+  return {
+    props: {
+      twitter: {
+        timeline: timeline.map((value) => ({
+          name: value.username,
+          screenName: value.name,
+          icon: value.profile_image_url,
+          source: value.text,
+          date: dayjs(value.created_at).format("M月D日"),
+        })),
+      },
+    },
+    revalidate: 60,
+  };
 };
 
 export default Home;
