@@ -7,7 +7,7 @@ import {
 } from "@mantine/core";
 import { FC } from "react";
 
-type TwitterCardProps = {
+export type TwitterCardProps = {
   name: string;
   screenName: string;
   source: string;
@@ -32,7 +32,17 @@ export const TwitterCard: FC<TwitterCardProps> = (props) => {
           </Group>
 
           <TypographyStylesProvider>
-            <div dangerouslySetInnerHTML={{ __html: source }} />
+            {/* <div dangerouslySetInnerHTML={{ __html: source }} /> */}
+            <pre
+              style={{
+                margin: 0,
+                padding: 0,
+                background: "none",
+                whiteSpace: "pre-wrap",
+              }}
+            >
+              {source}
+            </pre>
           </TypographyStylesProvider>
         </Stack>
       </Group>
