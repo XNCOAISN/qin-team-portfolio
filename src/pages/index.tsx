@@ -40,15 +40,6 @@ const GITHUB_LIST = Array(4).fill({
   ],
 });
 
-// const TWITTER_LIST = Array(3).fill({
-//   name: "shimabu_it",
-//   screenName: "しまぶーのIT大学",
-//   source:
-//     '<p>📣 新サービス「Noway Form」をリリースしました！</p><p>Noway Formは、Notionのデータベースをもとにフォームを作成できるサービスです。これまでGoogle FormsでやっていたことがNotionだけで完結します✌✨</p><p>試しに使っていただけると幸いです😊</p><p><a href="https://www.noway-form.com/ja" rel="nofollow">https://www.noway-form.com/ja</a></p>',
-//   icon: "https://picsum.photos/100",
-//   date: "5月25日",
-// });
-
 type Props = {
   twitter: {
     timeline: TwitterCardProps[];
@@ -115,10 +106,11 @@ const Home: NextPage<Props> = (props) => {
           </Section>
 
           <Section title="Twitter">
-            <Stack spacing="xl">
+            <Stack spacing="xl" sx={{ overflowY: "scroll", maxHeight: 650 }}>
               {twitter.timeline.map((value, index) => (
                 <TwitterCard
                   key={index}
+                  id={value.id}
                   icon={value.icon}
                   name={value.name}
                   screenName={value.screenName}
@@ -126,15 +118,15 @@ const Home: NextPage<Props> = (props) => {
                   source={value.source}
                 />
               ))}
-              <Center>
-                <ButtonLink
-                  href={`https://twitter.com/${process.env.NEXT_PUBLIC_TWITTER_USERNAME}`}
-                  external
-                >
-                  View on Twitter
-                </ButtonLink>
-              </Center>
             </Stack>
+            <Center mt="md">
+              <ButtonLink
+                href={`https://twitter.com/${process.env.NEXT_PUBLIC_TWITTER_USERNAME}`}
+                external
+              >
+                View on Twitter
+              </ButtonLink>
+            </Center>
           </Section>
         </Container>
       </Stack>
@@ -200,15 +192,15 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   const timeline = await fetchTimelineByUsername(
     process.env.NEXT_PUBLIC_TWITTER_USERNAME!
   );
-
   return {
     props: {
       twitter: {
         timeline: timeline.map((value) => ({
+          id: value.id,
           name: value.username,
           screenName: value.name,
           icon: value.profile_image_url,
-          source: value.text,
+          source: value.html,
           date: dayjs(value.created_at).format("M月D日"),
         })),
       },
