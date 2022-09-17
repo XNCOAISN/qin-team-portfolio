@@ -53,6 +53,13 @@ export const ThemeProvider = (props: MantineThemeProviderProps) => {
                 },
               }),
             },
+            Anchor: {
+              styles: () => ({
+                root: {
+                  color: "inherit",
+                },
+              }),
+            },
             Input: {
               defaultProps: {
                 radius: "xs",
