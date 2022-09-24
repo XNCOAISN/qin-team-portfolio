@@ -92,7 +92,7 @@ const LanguageLegens: FC<LanguageLegendProps> = (props) => {
   const { languages } = props;
 
   return (
-    <Group noWrap>
+    <Group sx={{ rowGap: 0 }}>
       {languages.map((value, index) => (
         <Group key={index} spacing={6} noWrap>
           <DotIcon color={value.color} />

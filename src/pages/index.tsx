@@ -197,9 +197,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
                 value: value.size / repo.languages.totalSize,
               };
             })
-            .filter((value) => {
-              return value.value > 0.2;
-            })
             .sort((a, b) => {
               return b!.value - a!.value;
             });
