@@ -1,13 +1,15 @@
 import { Box, Group, Stack, Text, Title, useMantineTheme } from "@mantine/core";
 import { FC } from "react";
 import { DotIcon } from "src/components/Icon";
+import { TextLink } from "src/components/TextLink";
 import { GitFork, Star } from "tabler-icons-react";
 
-type GitHubCardProps = {
+export type GitHubCardProps = {
   name: string;
   description: string;
   stars: number;
   forks: number;
+  url: string;
   languages: Language[];
 };
 
@@ -18,7 +20,7 @@ type Language = {
 };
 
 export const GitHubCard: FC<GitHubCardProps> = (props) => {
-  const { name, description, stars, forks, languages } = props;
+  const { name, description, stars, forks, url, languages } = props;
   const theme = useMantineTheme();
 
   const iconColor =
@@ -28,11 +30,15 @@ export const GitHubCard: FC<GitHubCardProps> = (props) => {
     <article>
       <Stack spacing={8}>
         <Title order={3}>
-          <Text size="lg">{name}</Text>
+          <TextLink href={url} size="lg">
+            {name}
+          </TextLink>
         </Title>
-        <Text weight={500} lineClamp={1}>
-          {description}
-        </Text>
+        {description ? (
+          <Text weight={500} lineClamp={1}>
+            {description}
+          </Text>
+        ) : null}
         <Group>
           <Group spacing={4}>
             <Star size={16} color={iconColor} />
@@ -86,7 +92,7 @@ const LanguageLegens: FC<LanguageLegendProps> = (props) => {
   const { languages } = props;
 
   return (
-    <Group noWrap>
+    <Group sx={{ rowGap: 0 }}>
       {languages.map((value, index) => (
         <Group key={index} spacing={6} noWrap>
           <DotIcon color={value.color} />

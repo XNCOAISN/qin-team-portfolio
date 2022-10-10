@@ -4,7 +4,7 @@ import type { GetStaticProps, NextPage } from "next";
 import { BlogCard, blogCardFromMicroCMS } from "src/components/BlogCard";
 import { ButtonLink } from "src/components/ButtonLink";
 import { CenterLoader } from "src/components/CenterLoader";
-import { GitHubCard } from "src/components/GitHubCard";
+import { GitHubCard, GitHubCardProps } from "src/components/GitHubCard";
 import {
   PortfolioCard,
   portfolioCardFromMicroCMS,
@@ -12,37 +12,17 @@ import {
 import { Section } from "src/components/Section";
 import { TwitterCard, TwitterCardProps } from "src/components/TwitterCard";
 import { LayoutWithHero } from "src/layouts/LayoutWithHero";
+import { fetchRepositories } from "src/lib/github/fetch";
 import { Blog, useMicroCMSQuery } from "src/lib/microcms";
 import { Portfolio } from "src/lib/microcms";
 import { fetchTimelineByUsername } from "src/lib/twitter/fetch-timeline";
 
-const GITHUB_LIST = Array(4).fill({
-  name: "lightsound/nexst-tailwind",
-  description: "Next.js starter template.",
-  stars: 117,
-  forks: 18,
-  languages: [
-    {
-      name: "Typescript",
-      value: 0.655,
-      color: "#3178C6",
-    },
-    {
-      name: "JavaScript",
-      value: 0.337,
-      color: "#F1E05A",
-    },
-    {
-      name: "Other",
-      value: 0.337,
-      color: "#EDEDED",
-    },
-  ],
-});
-
 type Props = {
   twitter: {
     timeline: TwitterCardProps[];
+  };
+  github: {
+    repositories: GitHubCardProps[];
   };
 };
 
@@ -70,7 +50,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const Home: NextPage<Props> = (props) => {
-  const { twitter } = props;
+  const { twitter, github } = props;
   const { classes } = useStyles();
 
   return (
@@ -86,27 +66,28 @@ const Home: NextPage<Props> = (props) => {
 
         <Container className={classes.sectionGroup}>
           <Section title="GitHub">
-            <Stack spacing="xl">
-              {GITHUB_LIST.map((value, index) => (
+            <Stack spacing="xl" sx={{ overflowY: "scroll", maxHeight: 600 }}>
+              {github.repositories.map((value, index) => (
                 <GitHubCard
                   key={index}
                   name={value.name}
                   description={value.description}
                   stars={value.stars}
                   forks={value.forks}
+                  url={value.url}
                   languages={value.languages}
                 />
               ))}
-              <Center>
-                <ButtonLink href="https://github.com/lightsound" external>
-                  View on GitHub
-                </ButtonLink>
-              </Center>
             </Stack>
+            <Center mt="md">
+              <ButtonLink href="https://github.com/lightsound" external>
+                View on GitHub
+              </ButtonLink>
+            </Center>
           </Section>
 
           <Section title="Twitter">
-            <Stack spacing="xl" sx={{ overflowY: "scroll", maxHeight: 650 }}>
+            <Stack spacing="xl" sx={{ overflowY: "scroll", maxHeight: 600 }}>
               {twitter.timeline.map((value, index) => (
                 <TwitterCard
                   key={index}
@@ -190,8 +171,10 @@ const Portfolio = () => {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const timeline = await fetchTimelineByUsername(
-    process.env.NEXT_PUBLIC_TWITTER_USERNAME!
+    process.env.NEXT_PUBLIC_TWITTER_USERNAME
   );
+  const repositories = await fetchRepositories(process.env.GITHUB_USERNAME);
+
   return {
     props: {
       twitter: {
@@ -203,6 +186,38 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
           source: value.html,
           date: dayjs(value.created_at).format("M月D日"),
         })),
+      },
+      github: {
+        repositories: repositories.user.repositories.nodes.map((repo) => {
+          const languages = repo.languages.edges
+            .map((value) => {
+              return {
+                name: value.node.name,
+                color: value.node.color,
+                value: value.size / repo.languages.totalSize,
+              };
+            })
+            .sort((a, b) => {
+              return b!.value - a!.value;
+            });
+          const sum = languages.reduce(
+            (prev, current) => prev + current.value,
+            0
+          );
+
+          if (sum < 1) {
+            languages.push({ name: "Other", color: "#EDEDED", value: 1 - sum });
+          }
+
+          return {
+            name: repo.name,
+            description: repo.description,
+            stars: repo.stargazerCount,
+            forks: repo.forkCount,
+            url: repo.url,
+            languages,
+          };
+        }),
       },
     },
     revalidate: 60,
